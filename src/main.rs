@@ -1,14 +1,14 @@
 use text_io::read;
 
-static mut MAX_FPS: f32 = 29.97;
-
-fn max_fps_settings() {
+fn max_fps_settings() -> f32 {
     print!("Enter file's FPS: ");
-    unsafe {
-     MAX_FPS = read!();   
-    }
+    let ret: f32 = read!();
+    ret
 }
 
 fn main() {
-    let cin: String = read!();
+    let max_fps: f32 = max_fps_settings();
+    // let cin: String = read!();
+    println!("{}", max_fps);
+    read!();
 }
