@@ -1,5 +1,19 @@
 use regex::Regex;
 use text_io::read;
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args{
+    #[arg(short, long, default_value_t = 0.0)]
+    max_fps: f32,
+
+    #[arg(short, long, value_name = "FPS")]
+    fps: Option<String>,
+
+    #[arg(short, long, default_value_t = true)]
+    copy_to_clipboars: bool,
+}
 
 fn max_fps_settings() -> f32 {
     print!("Enter file's FPS: ");
@@ -14,14 +28,14 @@ fn calculate_miliseconds(max_dot_seconds: u32, max_fps: f32, frame_of_second: u3
 }
 
 fn main() {
+    let args = Args::parse();
     const MAX_DOT_SECONDS: u32 = 999999999;
 
     let regexp = Regex::new(r"[\d]+$").unwrap();
-    let mut max_fps: f32 = max_fps_settings();
+    let mut max_fps: f32 = if args.max_fps != 0.0 {args.max_fps} else {max_fps_settings()};
     loop {
-        print!("Enter frame number: ");
-        let cin: String = read!();
         print!("Enter frame number (or letters to reconfigure max FPS, press C-c to quit): ");
+        let cin: String = if let Some(get_fps_arg) = args.fps.as_deref() {String::from(get_fps_arg)} else {read!()};
 
         if regexp.is_match(&cin) {
             let result =

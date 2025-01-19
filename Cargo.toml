@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 text_io = "0.1.12"
 regex = "1.11.1"
+clap = { version = "4.5.26", features = ["derive"] }
