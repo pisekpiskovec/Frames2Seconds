@@ -32,6 +32,7 @@ fn calculate_miliseconds(max_dot_seconds: u32, max_fps: f32, frame_of_second: u3
 }
 
 fn main() {
+    // TODO: Rewrite main to support bash args better
     println!("Write number to calculate or letter(s) to reconfigure max FPS; press C-c to quit.");
     let args = Args::parse();
     const MAX_DOT_SECONDS: u32 = 999999999;
