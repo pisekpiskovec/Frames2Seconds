@@ -1,4 +1,5 @@
 use clap::Parser;
+use clipboard::{ClipboardContext, ClipboardProvider};
 use regex::Regex;
 use text_io::read;
 
@@ -12,7 +13,7 @@ struct Args {
     fps: Option<String>,
 
     #[arg(short, long, default_value_t = true)]
-    copy_to_clipboars: bool,
+    copy_to_clipboard: bool,
 }
 
 fn max_fps_settings() -> f32 {
@@ -52,6 +53,10 @@ fn main() {
             let result =
                 calculate_miliseconds(MAX_DOT_SECONDS, max_fps, cin.parse::<u32>().unwrap());
             println!("{}", result);
+            if args.copy_to_clipboard {
+                let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
+                ctx.set_contents(result.to_string()).unwrap();
+            }
         } else {
             max_fps = max_fps_settings();
         }
