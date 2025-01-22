@@ -32,9 +32,13 @@ fn calculate_miliseconds(max_dot_seconds: u32, max_fps: f32, frame_of_second: u3
 }
 
 fn main() {
-    // TODO: Rewrite main to support bash args better
-    println!("Write number to calculate or letter(s) to reconfigure max FPS; press C-c to quit.");
     let args = Args::parse();
+    let one_time_run = args.fps.is_some();
+    if !one_time_run {
+        println!(
+            "Write number to calculate or letter(s) to reconfigure max FPS; press C-c to quit."
+        );
+    }
     const MAX_DOT_SECONDS: u32 = 1000000000;
 
     let regexp = Regex::new(r"[\d]+$").unwrap();
@@ -43,6 +47,7 @@ fn main() {
     } else {
         max_fps_settings()
     };
+
     loop {
         print!("Enter frame number: ");
         let cin: String = if let Some(get_fps_arg) = args.fps.as_deref() {
@@ -58,6 +63,9 @@ fn main() {
             if args.copy_to_clipboard {
                 let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
                 ctx.set_contents(format!("{:09}", result)).unwrap();
+            }
+            if args.fps.is_some() {
+                return;
             }
         } else {
             max_fps = max_fps_settings();
