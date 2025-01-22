@@ -6,7 +6,7 @@ use text_io::read;
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
-    #[arg(short, long, default_value_t = 0.0)]
+    #[arg(short, long, default_value_t = 29.97)]
     max_fps: f32,
 
     #[arg(short, long, value_name = "FPS")]
@@ -35,7 +35,7 @@ fn main() {
     // TODO: Rewrite main to support bash args better
     println!("Write number to calculate or letter(s) to reconfigure max FPS; press C-c to quit.");
     let args = Args::parse();
-    const MAX_DOT_SECONDS: u32 = 999999999;
+    const MAX_DOT_SECONDS: u32 = 1000000000;
 
     let regexp = Regex::new(r"[\d]+$").unwrap();
     let mut max_fps: f32 = if args.max_fps != 0.0 {
