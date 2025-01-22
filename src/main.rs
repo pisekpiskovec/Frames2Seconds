@@ -54,10 +54,10 @@ fn main() {
         if regexp.is_match(&cin) {
             let result =
                 calculate_miliseconds(MAX_DOT_SECONDS, max_fps, cin.parse::<u32>().unwrap());
-            println!("{}", result);
+            println!("{:09}", result);
             if args.copy_to_clipboard {
                 let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
-                ctx.set_contents(result.to_string()).unwrap();
+                ctx.set_contents(format!("{:09}", result)).unwrap();
             }
         } else {
             max_fps = max_fps_settings();
