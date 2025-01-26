@@ -12,8 +12,8 @@ struct Args {
     #[arg(short, long, value_name = "FPS")]
     fps: Option<String>,
 
-    #[arg(short, long, default_value_t = true)]
-    copy_to_clipboard: bool,
+    #[arg(short, long, action, default_missing_value = "true")]
+    dont_copy_to_clipboard: bool,
 }
 
 fn max_fps_settings() -> f32 {
@@ -60,7 +60,7 @@ fn main() {
             let result =
                 calculate_miliseconds(MAX_DOT_SECONDS, max_fps, cin.parse::<u32>().unwrap());
             println!("{:09}", result);
-            if args.copy_to_clipboard {
+            if !args.dont_copy_to_clipboard {
                 let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
                 ctx.set_contents(format!("{:09}", result)).unwrap();
             }
