@@ -17,16 +17,22 @@ frames2seconds -m <number>
 frames2seconds -f <number>
 ```
 
+## Internal shell
+When run, you'll be welcomed with promt `Enter frame number: `.
+Unless specified (command argument), the default value of file's FPS is `29.97`. To change the value, enter non-numeric value and new prompt will appear - `Enter file's FPS: `.
+
 ### Clipboard
 The result is copied to the clipboard by default. To alternate this preference run with an argument
 ```bash
-# TODO
+frames2seconds -d
 ```
 
 ## Build
-1) Clone the repo
-2) Open the project's folder in the terminal
-3) Run in the terminal
 ```bash
+# Clone the repository
+git clone https://github.com/pisekpiskovec/Frames2Seconds.git
+
+# Build (debug version)
+cd Frames2Seconds
 cargo build
 ```
